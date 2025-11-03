@@ -1,0 +1,47 @@
+body {
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    background-color: #f3b477;
+}
+
+#calc-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.display {
+    font-size: 80px;
+    font-weight: bold;
+    color: #8a541e;
+    margin: 30px;
+    min-height: 100px;
+}
+
+button {
+    width: 100px;
+    height: 100px;
+    font-size: 50px;
+    font-weight: bold;
+    margin: 3px;
+    background-color: #82ae9d;
+    color: #8a541e;
+    border: none;
+    border-radius: 20px;
+}
+
+button:hover {
+    border: 5px solid #d64f77;
+}
+
+.times,
+.plus,
+.divide,
+.multiply,
+.minus,
+.clear,
+.equals {
+    background-color: #8a3a51;
+    color: #f3b477;
+}
