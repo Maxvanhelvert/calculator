@@ -1,5 +1,6 @@
 let display = document.querySelector(".display");
-let oneButton = document.querySelector(".one");
+
+let anyButton = document.querySelectorAll("button");
 
 //functions to do the operations
 function add(a, b) {
@@ -19,34 +20,74 @@ function divide(a, b) {
 }
 
 //var to store the numbers and operator
-let firstNum = 0;
-let secondNum = 0;
+let fNum = "";
+let sNum = "";
 let operator = "";
+let total = "";
 
 //function handles the operation, to be called by "=" or if a second operator is clicked after a second number.
 function operate(op, fNum, sNum) {
+    let numA = Number(fNum);
+    let numB = Number(sNum);
+
     if ((op = "+")) {
-        return add(fNum, sNum);
+        return add(numA, numB);
     } else if ((op = "-")) {
-        return subtract(fNum, sNum);
+        return subtract(numA, numB);
     } else if ((op = "x")) {
-        return multiply(fNum, sNum);
+        return multiply(numA, numB);
     } else if ((op = "÷")) {
-        return divide(fNum, sNum);
+        return divide(numA, numB);
     } else {
         return;
     }
 }
 
-let displayOutput = 0;
+let displayOutput = "";
 
-function displayText(sum) {
-    display.innerText = sum;
+function displayText(output) {
+    display.textContent = output;
 }
 
-oneButton.addEventListener("click", () => {
-    displayOutput += 1;
-    displayText(displayOutput);
+// if you enter =, run "operate"
+// if you enter an operator and the operator var is empty, add operator, else run "operate"
+// if you add a number and firstNum is empty, add it there, else add it to secondNum.
+function getButtonInput(value) {
+    if (value === "=") {
+        total = operate(operator, fNum, sNum);
+        displayText(total);
+        fNum = total;
+        sNum = "";
+        op = "";
+    } else if (
+        (value === "+") |
+        (value === "-") |
+        (value === "x") |
+        (value === "÷")
+    ) {
+        if (operator === "") {
+            displayText((operator = value));
+        } else {
+            total = operate(operator, fNum, sNum);
+            displayText(total);
+            fNum = total;
+            sNum = "";
+            op = "";
+        }
+    } else if (operator === "") {
+        fNum += value;
+        displayText(fNum);
+    } else {
+        sNum += value;
+        displayText(sNum);
+    }
+}
+
+anyButton.forEach((button) => {
+    button.addEventListener("click", () => {
+        let value = button.textContent;
+        getButtonInput(value);
+    });
 });
 
 //when showing on the display, only show the current number.
