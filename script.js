@@ -30,20 +30,22 @@ function operate(op, fNum, sNum) {
     let numA = Number(fNum);
     let numB = Number(sNum);
 
-    if ((op = "+")) {
+    if (op == "+") {
+        console.log("adding up");
         return add(numA, numB);
-    } else if ((op = "-")) {
+    } else if (op == "-") {
+        console.log("taking away");
         return subtract(numA, numB);
-    } else if ((op = "x")) {
+    } else if (op == "x") {
+        console.log("multiplying");
         return multiply(numA, numB);
-    } else if ((op = "÷")) {
+    } else if (op == "÷") {
+        console.log("dividing");
         return divide(numA, numB);
     } else {
         return;
     }
 }
-
-let displayOutput = "";
 
 function displayText(output) {
     display.textContent = output;
@@ -53,12 +55,19 @@ function displayText(output) {
 // if you enter an operator and the operator var is empty, add operator, else run "operate"
 // if you add a number and firstNum is empty, add it there, else add it to secondNum.
 function getButtonInput(value) {
-    if (value === "=") {
+    if (value === "C") {
+        console.log("Clearing");
+        fNum = "";
+        sNum = "";
+        operator = "";
+        displayText("clear");
+    } else if (value === "=") {
+        console.log("getting result");
         total = operate(operator, fNum, sNum);
         displayText(total);
         fNum = total;
         sNum = "";
-        op = "";
+        operator = "";
     } else if (
         (value === "+") |
         (value === "-") |
@@ -66,18 +75,23 @@ function getButtonInput(value) {
         (value === "÷")
     ) {
         if (operator === "") {
-            displayText((operator = value));
+            console.log("operator is " + value);
+            operator = value;
+            displayText(operator);
         } else {
+            console.log("getting result after second operator");
             total = operate(operator, fNum, sNum);
             displayText(total);
             fNum = total;
             sNum = "";
-            op = "";
+            operator = value;
         }
     } else if (operator === "") {
+        console.log("adding to first number");
         fNum += value;
         displayText(fNum);
     } else {
+        console.log("getting second number");
         sNum += value;
         displayText(sNum);
     }
@@ -86,6 +100,7 @@ function getButtonInput(value) {
 anyButton.forEach((button) => {
     button.addEventListener("click", () => {
         let value = button.textContent;
+        console.log(value + " clicked");
         getButtonInput(value);
     });
 });
