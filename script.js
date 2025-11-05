@@ -40,20 +40,24 @@ function operate(op, fNum, sNum) {
         console.log("multiplying");
         return multiply(numA, numB);
     } else if (op == "÷") {
-        console.log("dividing");
-        return divide(numA, numB);
+        if (sNum === "0") {
+            return "Divide by 0 not possible";
+        } else {
+            console.log("dividing");
+            let div = divide(numA, numB);
+            return div.toFixed(3);
+        }
     } else {
         return;
     }
 }
 
+// function to display text on screen
 function displayText(output) {
     display.textContent = output;
 }
 
-// if you enter =, run "operate"
-// if you enter an operator and the operator var is empty, add operator, else run "operate"
-// if you add a number and firstNum is empty, add it there, else add it to secondNum.
+// function to handle button functioning
 function getButtonInput(value) {
     if (value === "C") {
         console.log("Clearing");
@@ -65,7 +69,7 @@ function getButtonInput(value) {
         console.log("getting result");
         total = operate(operator, fNum, sNum);
         displayText(total);
-        fNum = total;
+        fNum = "";
         sNum = "";
         operator = "";
     } else if (
@@ -82,9 +86,9 @@ function getButtonInput(value) {
             console.log("getting result after second operator");
             total = operate(operator, fNum, sNum);
             displayText(total);
-            fNum = total;
+            fNum = "";
             sNum = "";
-            operator = value;
+            operator = "";
         }
     } else if (operator === "") {
         console.log("adding to first number");
@@ -97,6 +101,7 @@ function getButtonInput(value) {
     }
 }
 
+// handles button input and passes button value to button input function.
 anyButton.forEach((button) => {
     button.addEventListener("click", () => {
         let value = button.textContent;
@@ -104,7 +109,3 @@ anyButton.forEach((button) => {
         getButtonInput(value);
     });
 });
-
-//when showing on the display, only show the current number.
-// get the operator to clear the screen ready for the second number (equals button to show the total.)
-// Option to show a second small screen with a running total somewhere else.
